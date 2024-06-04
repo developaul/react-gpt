@@ -11,8 +11,9 @@ import {
   ImageTunningPage
 } from '../pages'
 import { DashboardLayout } from "../layouts/DashboardLayout";
+import { Route } from "../../interfaces";
 
-export const menuRoutes = [
+export const menuRoutes: Route[] = [
   {
     to: "/orthography",
     icon: "fa-solid fa-spell-check",
