@@ -1,5 +1,3 @@
-// import { OrthographyResponse } from "../../interfaces";
-
 import { ProsConsResponse } from "../../interfaces";
 
 export const prosConsUseCase = async (prompt: string) => {
