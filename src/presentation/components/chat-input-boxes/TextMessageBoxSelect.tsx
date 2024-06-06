@@ -1,37 +1,43 @@
-import { FC, FormEvent, useState } from "react"
+import { FC, FormEvent, useState } from "react";
 
 interface Props {
-  onSendMessage: (message: string) => void
-  placeholder?: string
-  disabledCorrections?: boolean
-  options: Option[]
+  onSendMessage: (message: string, selectedOption: string) => void;
+  placeholder?: string;
+  disabledCorrections?: boolean;
+  options: Option[];
 }
 
 interface Option {
-  id: string
-  text: string
+  id: string;
+  text: string;
 }
 
-export const TextMessageBoxSelect: FC<Props> = ({ onSendMessage, placeholder, disabledCorrections = false, options }) => {
-  const [message, setMessage] = useState<string>("")
-  const [selectedOption, setSelectedOption] = useState<string>('')
+export const TextMessageBoxSelect: FC<Props> = ({
+  onSendMessage,
+  placeholder,
+  disabledCorrections = false,
+  options,
+}) => {
+  const [message, setMessage] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMessage(event.target.value)
-  }
+    setMessage(event.target.value);
+  };
 
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value)
-  }
+    setSelectedOption(event.target.value);
+  };
 
   const handleSendMessage = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    if (message.trim().length === 0) return
+    if (message.trim().length === 0) return;
+    if (!selectedOption.trim().length) return;
 
-    onSendMessage(message)
-    setMessage("")
-  }
+    onSendMessage(message, selectedOption);
+    setMessage("");
+  };
 
   return (
     <form
@@ -62,26 +68,20 @@ export const TextMessageBoxSelect: FC<Props> = ({ onSendMessage, placeholder, di
             <option value="" disabled>
               Seleccione
             </option>
-            {
-              options.map(({ id, text }) => (
-                <option key={id} value={id}>
-                  {text}
-                </option>
-              ))
-            }
+            {options.map(({ id, text }) => (
+              <option key={id} value={id}>
+                {text}
+              </option>
+            ))}
           </select>
-
         </div>
       </div>
       <div className="ml-4">
-        <button
-          type="submit"
-          className="btn-primary"
-        >
+        <button type="submit" className="btn-primary">
           <span className="mr-2">Enviar</span>
           <i className="fa-regular fa-paper-plane" />
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
